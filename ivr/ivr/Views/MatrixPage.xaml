@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:ivr.Models"
+             xmlns:local="clr-namespace:ivr.ViewModels"
+             x:Class="ivr.Views.MatrixPage">
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView x:Name="IU"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                  ItemsSource="{Binding Matrix.IU}"
+                  Grid.Row="0" Grid.Column="0" BackgroundColor="Blue">
+            <ListView.GestureRecognizers>
+                <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
+                                        DropCommandParameter="1"/>
+            </ListView.GestureRecognizers>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10"
+                              x:DataType="model:Item">
+                            <Grid.GestureRecognizers>
+                                <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference IU}}"
+                                                       DragStartingCommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="{Binding Title}">
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="INU"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                  ItemsSource="{Binding Matrix.INU}"
+                  Grid.Row="0" Grid.Column="1" BackgroundColor="Azure">
+            <ListView.GestureRecognizers>
+                <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
+                                        DropCommandParameter="2"/>
+            </ListView.GestureRecognizers>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10"
+                              x:DataType="model:Item">
+                            <Grid.GestureRecognizers>
+                                <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference INU}}"
+                                                       DragStartingCommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="{Binding Title}">
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="NIU"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                  ItemsSource="{Binding Matrix.NIU}"
+                  Grid.Row="1" Grid.Column="0" BackgroundColor="Azure">
+            <ListView.GestureRecognizers>
+                <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
+                                        DropCommandParameter="3"/>
+            </ListView.GestureRecognizers>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10"
+                              x:DataType="model:Item">
+                            <Grid.GestureRecognizers>
+                                <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference NIU}}"
+                                                       DragStartingCommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="{Binding Title}">
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="NINU"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                  ItemsSource="{Binding Matrix.NINU}"
+                  Grid.Row="1" Grid.Column="1" BackgroundColor="Blue">
+            <ListView.GestureRecognizers>
+                <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
+                                        DropCommandParameter="4"/>
+            </ListView.GestureRecognizers>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10"
+                              x:DataType="model:Item">
+                            <Grid.GestureRecognizers>
+                                <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference NINU}}"
+                                                       DragStartingCommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="{Binding Title}">
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ListView x:Name="Undistr"
+                  RefreshCommand="{Binding LoadItemsCommand}"
+                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                  ItemsSource="{Binding Matrix.Undistributed}"
+                  Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="Teal">
+            <ListView.GestureRecognizers>
+                <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
+                                        DropCommandParameter="0"/>
+            </ListView.GestureRecognizers>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="10"
+                              x:DataType="model:Item">
+                            <Grid.GestureRecognizers>
+                                <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference Undistr}}"
+                                                       DragStartingCommandParameter="{Binding}"/>
+                            </Grid.GestureRecognizers>
+                            <Label Text="{Binding Title}">
+                            </Label>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

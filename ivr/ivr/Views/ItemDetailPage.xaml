@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ivr.ViewModels"
+             xmlns:model="clr-namespace:ivr.Models"
+             x:Class="ivr.Views.ItemDetailPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}" />
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Entry Text="{Binding Title}" />
+        <Entry Text="{Binding Data}" />
+        <Label Text="{Binding EClass}"/>
+        <DatePicker Date="{Binding Date}"/>
+        <TimePicker Time="{Binding Time}"/>
+    </StackLayout>
+</ContentPage>
