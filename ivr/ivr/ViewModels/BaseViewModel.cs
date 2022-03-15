@@ -7,12 +7,14 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
+using Firebase.Auth;
 
 namespace ivr.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+
         bool isBusy = false;
         public bool IsBusy
         {
@@ -42,6 +44,42 @@ namespace ivr.ViewModels
                 onErase.AddRange(GetItemTree(ref list, item.Id));
             }
             return onErase;
+        }
+
+        protected List<Item> Merge(ref List<Item> a, ref List<Item> b)
+        {
+            int i = 0, j = 0;
+            var merged = new List<Item>();
+            while (i < a.Count && j < b.Count)
+            {
+                if (a[i].Id == b[j].Id)
+                {
+                    merged.Add(a[i]);
+                    i++;
+                    j++;
+                }
+                else if (a[i].Id < b[j].Id)
+                {
+                    merged.Add(a[i]);
+                    i++;
+                }
+                else
+                {
+                    merged.Add(b[j]);
+                    j++;
+                }
+            }
+            while (i < a.Count)
+            {
+                merged.Add(a[i]);
+                i++;
+            }
+            while (j < b.Count)
+            {
+                merged.Add(b[j]);
+                j++;
+            }
+            return merged;
         }
 
         #region INotifyPropertyChanged

@@ -154,4 +154,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\icon_journal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\user_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_missed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\icon_finished.png" />
+  </ItemGroup>
 </Project>

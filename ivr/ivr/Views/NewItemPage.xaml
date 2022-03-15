@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ivr.ViewModels"
+             xmlns:model="clr-namespace:ivr.Models"
+             x:Class="ivr.Views.NewItemPage"
+             x:DataType="local:NewItemViewModel">
+    <ContentPage.Content>
+        <StackLayout Spacing="3" Padding="15">
+            <Label Text="Type" FontSize="Medium" />
+            <Picker SelectedIndex="{Binding Type}">
+                <Picker.Items>
+                    <x:String>Event</x:String>
+                    <x:String>Deadline</x:String>
+                    <x:String>Task</x:String>
+                </Picker.Items>
+            </Picker>
+            <Entry Text="{Binding Title, Mode=TwoWay}" Placeholder="Title"/>
+            <Entry Text="{Binding Data, Mode=TwoWay}" Placeholder="Data"/>
+            <DatePicker Date="{Binding Date, Mode=TwoWay}"/>
+            <TimePicker Time="{Binding Time, Mode=TwoWay}"/>
+            <Frame HeightRequest="40" Margin="0,0,0,0" Padding="0,0,0,0">
+                <Button Text="Add Subtasks" Command="{Binding AddCommand}" IsVisible="{Binding IsTask, Mode=TwoWay}" />
+            </Frame>
+            <Frame>
+                <ListView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                          ItemsSource="{Binding Subitems}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Item">
+                            <ViewCell>
+                                <Label Text="{Binding Title}"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}"/>
+                <Button Text="Save" Command="{Binding SaveCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

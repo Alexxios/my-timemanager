@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using ivr.Models;
 using Xamarin.Forms;
+using Xamarin.Essentials;
+using Firebase.Database.Query;
 
 namespace ivr.ViewModels
 {
@@ -40,7 +43,8 @@ namespace ivr.ViewModels
             try
             {
                 Matrix.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = (await DataStore.GetItemsAsync(true))
+                    .Where(i => i.Dt >= DateTime.Now);
                 foreach (var item in items)
                 {
                     Matrix.Add(item);
@@ -75,6 +79,15 @@ namespace ivr.ViewModels
                 Item.EClass = eclass;
                 Matrix.Add(Item);
                 await DataStore.SaveItemAsync(Item);
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet && !string.IsNullOrEmpty(App.UserId)
+                && Preferences.Get("SyncEnabled", false))
+                {
+                    await App.Client
+                        .Child(App.UserId)
+                        .Child("journal")
+                        .Child(Item.Id.ToString())
+                        .PutAsync(item);
+                }
             } 
             catch (Exception ex)
             {

@@ -14,19 +14,21 @@ using ivr.Models;
 namespace ivr.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class NewItemPopup : Popup<Item>
+    public partial class DatabaseChoosePopup : Popup
     {
-        NewItemViewModel _viewModel;
-        public NewItemPopup(Item parent)
+        public DatabaseChoosePopup()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new NewItemViewModel();
-            if (parent != null) _viewModel.ParentId = parent.Id;
         }
 
         private void Clicked(object sender, EventArgs e)
         {
-            Dismiss(_viewModel.Item);
+            Dismiss(0);
+        }
+
+        private void Clicked1(object sender, EventArgs e)
+        {
+            Dismiss(1);
         }
     }
 }

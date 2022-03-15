@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+           xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+           xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+           xmlns:local="clr-namespace:ivr.Models"
+           xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+           x:Class="ivr.Views.DatabaseChoosePopup"
+           ios:Page.UseSafeArea="true"
+           Shell.PresentationMode="ModalAnimated">
+    <StackLayout Spacing="3" Padding="15">
+        <Frame>
+            <Label Text="There are some differences between data saved on this device and cloud storage. Choose what to do" />
+        </Frame>
+        <StackLayout Orientation="Horizontal">
+            <Button Text="Load to device" Clicked="Clicked"/>
+            <Button Text="Upload to cloud" Clicked="Clicked1" />
+        </StackLayout>
+    </StackLayout>
+</xct:Popup>

@@ -13,9 +13,16 @@
             <Entry Text="{Binding Email}" VerticalOptions="Center" Placeholder="Email"></Entry>
             <Entry Text="{Binding Password}" VerticalOptions="Center" IsPassword="True" Placeholder="Password"></Entry>
             <StackLayout Orientation="Horizontal">
+                <Label Text="Autofill" Padding="0, 5"/>
+                <Switch IsToggled="{Binding Toggled}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Button VerticalOptions="Center" Text="Log in" Command="{Binding LoginCommand}"/>
                 <Button VerticalOptions="Center" Text="Register" Command="{Binding RegisterCommand}"/>
+                <Button VerticalOptions="Center" Text="Continue without auth" Command="{Binding SkipCommand}"
+                        BackgroundColor="White" TextColor="DimGray"/>
             </StackLayout>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

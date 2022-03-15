@@ -22,7 +22,7 @@ namespace ivr.ViewModels
 
         public RegisterViewModel()
         {
-            if (!string.IsNullOrEmpty(App.UserID)) Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
+            if (!string.IsNullOrEmpty(App.UserId)) Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
 
             RegisterCommand = new Command(OnRegisterClicked);
         }
@@ -59,7 +59,7 @@ namespace ivr.ViewModels
             {
                 var addr = new System.Net.Mail.MailAddress(Email);
                 var auth = await App.AuthProvider.CreateUserWithEmailAndPasswordAsync(addr.Address, Password);
-                App.UserID = auth.User.LocalId;
+                App.User = auth.User;
                 App.Client = new FirebaseClient(Constants.FirebasePath,
                     new FirebaseOptions
                     {

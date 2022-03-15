@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ivr.Views.MissedItemsPage"
+             xmlns:local="clr-namespace:ivr.ViewModels"  
+             xmlns:model="clr-namespace:ivr.Models">
+    <ContentPage.Content>
+        <RefreshView Margin="30" x:DataType="local:MissedItemsViewModel" 
+                     Command="{Binding LoadItemsCommand}" 
+                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <ListView x:Name="journal"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding Items}"
+                  IsGroupingEnabled="True"
+                  SelectionMode="Single"
+                  SelectedItem="{Binding SelectedItem}">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="model:Grouping">
+                        <ViewCell Height="30">
+                            <StackLayout>
+                                <Label Text="{Binding Name}" FontSize="Medium" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Item">
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <SwipeView>
+                                    <SwipeView.LeftItems>
+                                        <SwipeItems>
+                                            <SwipeItem Text="Edit" BackgroundColor="Yellow"/>
+                                            <SwipeItem Text="Del" BackgroundColor="Red"/>
+                                        </SwipeItems>
+                                    </SwipeView.LeftItems>
+                                    <SwipeView.RightItems>
+                                        <SwipeItems Mode="Execute">
+                                            <SwipeItem Text="Done" BackgroundColor="Green"/>
+                                        </SwipeItems>
+                                    </SwipeView.RightItems>
+                                    <Label Text="{Binding JournalView}"/>
+                                </SwipeView>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

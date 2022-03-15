@@ -4,34 +4,49 @@
              x:Class="ivr.Views.SettingsPage">
     <ContentPage.Content>
         <StackLayout>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="64"/>
-                    <RowDefinition Height="64"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="128" />
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+            <Frame Padding="30">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
 
-                <Image Grid.RowSpan="2" Grid.Column="0" Source="{Binding ImageSource}"/>
-                <Label Text="{Binding Email}"/>
-                <Button Text="Change password"/>
-            </Grid>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Text="Enable Sync"/>
-                <Switch Grid.Row="0" Grid.Column="1" IsToggled="{Binding Toggled}"/>
-                <Label Grid.Row="1" Grid.Column="0" Text="Daily Notification Time"/>
-                <TimePicker Grid.Row="1" Grid.Column="1" Time="{Binding Time}"/>
-            </Grid>
+                    <Image Grid.RowSpan="3" Grid.Column="0" Source="{Binding ImageSource}"/>
+                    <Frame Grid.Row="0" Grid.Column="1" >
+                        <Label Text="{Binding Email}" Padding="10"/>
+                    </Frame>
+                    <Frame Grid.Row="1" Grid.Column="1">
+                        <Button Text="Change password"/>
+                    </Frame>
+
+                    <StackLayout Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                        <Frame>
+                            <Label Text="Enable Sync" Padding="0, 5"/>
+                        </Frame>
+                        <Frame>
+                            <Switch IsToggled="{Binding Toggled}"/>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout Grid.Row="3" Grid.Column="1" Orientation ="Horizontal">
+                        <Frame>
+                            <Label Text="Daily Notification Time" Padding="0, 5"/>
+                        </Frame>
+                        <Frame>
+                            <TimePicker Time="{Binding Time}"/>
+                        </Frame>
+                    </StackLayout>
+                    <Frame Grid.Row="4" Grid.Column="1">
+                        <Button Text="Save" Command="{Binding SaveCommand}" />
+                    </Frame>
+                </Grid>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

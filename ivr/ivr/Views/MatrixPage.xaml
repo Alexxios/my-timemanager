@@ -20,7 +20,10 @@
                   RefreshCommand="{Binding LoadItemsCommand}"
                   IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                   ItemsSource="{Binding Matrix.IU}"
-                  Grid.Row="0" Grid.Column="0" BackgroundColor="Blue">
+                  Grid.Row="0" Grid.Column="0" BackgroundColor="LightGreen">
+            <ListView.Header>
+                <Label Text="Important Urgent" FontSize="Large" VerticalOptions="Center" HorizontalOptions="Center" />
+            </ListView.Header>
             <ListView.GestureRecognizers>
                 <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
                                         DropCommandParameter="1"/>
@@ -46,7 +49,10 @@
                   RefreshCommand="{Binding LoadItemsCommand}"
                   IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                   ItemsSource="{Binding Matrix.INU}"
-                  Grid.Row="0" Grid.Column="1" BackgroundColor="Azure">
+                  Grid.Row="0" Grid.Column="1" BackgroundColor="LightBlue">
+            <ListView.Header>
+                <Label Text="Important Not Urgent" FontSize="Large" VerticalOptions="Center" HorizontalOptions="Center" />
+            </ListView.Header>
             <ListView.GestureRecognizers>
                 <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
                                         DropCommandParameter="2"/>
@@ -72,7 +78,10 @@
                   RefreshCommand="{Binding LoadItemsCommand}"
                   IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                   ItemsSource="{Binding Matrix.NIU}"
-                  Grid.Row="1" Grid.Column="0" BackgroundColor="Azure">
+                  Grid.Row="1" Grid.Column="0" BackgroundColor="PeachPuff">
+            <ListView.Header>
+                <Label Text="Not Important Urgent" FontSize="Large" VerticalOptions="Center" HorizontalOptions="Center" />
+            </ListView.Header>
             <ListView.GestureRecognizers>
                 <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
                                         DropCommandParameter="3"/>
@@ -98,7 +107,10 @@
                   RefreshCommand="{Binding LoadItemsCommand}"
                   IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                   ItemsSource="{Binding Matrix.NINU}"
-                  Grid.Row="1" Grid.Column="1" BackgroundColor="Blue">
+                  Grid.Row="1" Grid.Column="1" BackgroundColor="Crimson">
+            <ListView.Header>
+                <Label Text="Not Important Not Urgent" FontSize="Large" VerticalOptions="Center" HorizontalOptions="Center" />
+            </ListView.Header>
             <ListView.GestureRecognizers>
                 <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
                                         DropCommandParameter="4"/>
@@ -124,7 +136,7 @@
                   RefreshCommand="{Binding LoadItemsCommand}"
                   IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                   ItemsSource="{Binding Matrix.Undistributed}"
-                  Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="Teal">
+                  Grid.Row="2" Grid.ColumnSpan="2" BackgroundColor="LightGray">
             <ListView.GestureRecognizers>
                 <DropGestureRecognizer DropCommand="{Binding ItemDropped}"
                                         DropCommandParameter="0"/>
@@ -132,7 +144,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10"
+                        <Grid Padding="5"
                               x:DataType="model:Item">
                             <Grid.GestureRecognizers>
                                 <DragGestureRecognizer DragStartingCommand="{Binding BindingContext.ItemDragged, Source={x:Reference Undistr}}"

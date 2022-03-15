@@ -15,7 +15,7 @@
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     
-    <RefreshView x:DataType="local:JournalViewModel" 
+    <RefreshView Margin="30" x:DataType="local:JournalViewModel" 
                      Command="{Binding LoadItemsCommand}" 
                      IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <ListView x:Name="journal"
@@ -49,7 +49,7 @@
                                         <SwipeItem Text="Done" BackgroundColor="Green"/>
                                     </SwipeItems>
                                 </SwipeView.RightItems>
-                                <Label Text="{Binding Title}"/>
+                                <Label Text="{Binding JournalView}"/>
                             </SwipeView>
                         </StackLayout>
                     </ViewCell>

@@ -6,10 +6,16 @@ using Xamarin.Forms;
 using Xamarin.CommunityToolkit.Extensions;
 using ivr.Views;
 using ivr.Models;
+using Xamarin.Essentials;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using Firebase.Database.Query;
 
 namespace ivr.ViewModels
 {
+    [QueryProperty(nameof(ParentId), nameof(ParentId))]
+    [QueryProperty(nameof(ChildId), nameof(ChildId))]
     class NewItemViewModel : BaseViewModel
     {
         #region
@@ -104,6 +110,17 @@ namespace ivr.ViewModels
             }
         }
 
+        public int ChildId { get; set; }
+
+
+        private ObservableCollection<Item> subitems;
+
+        public ObservableCollection<Item> Subitems
+        {
+            get { return subitems; }
+            private set { SetProperty(ref subitems, value); }
+        }
+
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         public Command AddCommand { get; }
@@ -115,6 +132,7 @@ namespace ivr.ViewModels
             Date = DateTime.Now.Date;
             Time = TimeSpan.FromDays(1) - TimeSpan.FromSeconds(1);
             IsTask = false;
+            Subitems = new ObservableCollection<Item>();
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             AddCommand = new Command(OnAdd);
@@ -137,21 +155,70 @@ namespace ivr.ViewModels
                 {
                     await DataStore.DeleteItemAsync(id);
                 }
+                if (Connectivity.NetworkAccess == NetworkAccess.Internet && !string.IsNullOrEmpty(App.UserId)
+                && Preferences.Get("SyncEnabled", false))
+                {
+                    foreach (var id in onErase)
+                    {
+                        await App.Client
+                           .Child(App.UserId)
+                           .Child("journal")
+                           .Child(id.ToString())
+                           .DeleteAsync();
+                    }
+                    
+                }
             }
             // This will pop the current page off the navigation stack
+            await Shell.Current.GoToAsync($"..?{nameof(NewItemViewModel.ChildId)}=0");
         }
 
         private async void OnSave()
         {
 
             Id = await DataStore.SaveItemAsync(Item);
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet && !string.IsNullOrEmpty(App.UserId)
+                && Preferences.Get("SyncEnabled", false))
+            {
+                await App.Client
+                    .Child(App.UserId)
+                    .Child("journal")
+                    .Child(Id.ToString())
+                    .PutAsync(Item);
+            }
             // This will pop the current page off the navigation stack
+            await Shell.Current.GoToAsync($"..?{nameof(NewItemViewModel.ChildId)}={Id}");
         }
 
         private async void OnAdd()
         {
             Id = await DataStore.SaveItemAsync(Item);
-            await App.Current.MainPage.Navigation.ShowPopupAsync(new NewItemPopup(Item));
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet && !string.IsNullOrEmpty(App.UserId)
+                && Preferences.Get("SyncEnabled", false))
+            {
+                await App.Client
+                    .Child(App.UserId)
+                    .Child("journal")
+                    .Child(Id.ToString())
+                    .PutAsync(Item);
+            }
+            await Shell.Current.GoToAsync($"{nameof(NewItemPage)}?{nameof(NewItemViewModel.ParentId)}={Id}");
+            if (ChildId == 0) return;
+
+            IsBusy = true;
+            try
+            {
+                var newSubitem = await DataStore.GetItemAsync(ChildId);
+                Subitems.Add(newSubitem);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         
